@@ -5,7 +5,7 @@
 <h1 align="center">VoteSaathi – Your Election Companion</h1>
 
 <p align="center">
-  <strong>A futuristic election command center that guides Indian voters through the entire voting process with clarity, confidence, and interactivity.</strong>
+  <strong"Built entirely with AI prompts — a cinematic election assistant for 970 million Indian voters."</strong>
 </p>
 
 <p align="center">
