@@ -5,7 +5,7 @@
 <h1 align="center">VoteSaathi – Your Election Companion</h1>
 
 <p align="center">
-  <strong"Built entirely with AI prompts — a cinematic election assistant for 970 million Indian voters."</strong>
+  <strong>"Built entirely with AI prompts — a cinematic election assistant for 970 million Indian voters."</strong>
 </p>
 
 <p align="center">
