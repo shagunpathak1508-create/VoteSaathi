@@ -154,6 +154,13 @@ const translations: Record<Language, Record<string, string>> = {
     "constituency.pollingBoothInfo": "Polling Booth Info",
     "constituency.officialSource": "Candidate data is sourced directly from the official ECI portal",
     "constituency.searchAgain": "Search again",
+    "constituency.candidates": "Candidates",
+    "constituency.incumbent": "Incumbent",
+    "constituency.nota": "None of the Above (NOTA)",
+    "constituency.totalVoters": "Total Voters",
+    "constituency.dataDisclaimer": "This data is for informational purposes only and may not reflect the final candidate list. Always verify at affidavit.eci.gov.in before voting day",
+    "constituency.noDataMessage": "Candidate data for this constituency will be available closer to election date. Visit the official ECI portal for current information",
+    "constituency.verifyAt": "Verify on ECI Portal",
   },
 
   hi: {
@@ -307,6 +314,13 @@ const translations: Record<Language, Record<string, string>> = {
     "constituency.pollingBoothInfo": "मतदान केंद्र की जानकारी",
     "constituency.officialSource": "उम्मीदवार डेटा सीधे आधिकारिक ECI पोर्टल से लिया गया है",
     "constituency.searchAgain": "फिर से खोजें",
+    "constituency.candidates": "उम्मीदवार",
+    "constituency.incumbent": "मौजूदा",
+    "constituency.nota": "इनमें से कोई नहीं (NOTA)",
+    "constituency.totalVoters": "कुल मतदाता",
+    "constituency.dataDisclaimer": "यह डेटा केवल सूचनात्मक उद्देश्यों के लिए है और अंतिम उम्मीदवार सूची को नहीं दर्शा सकता। मतदान दिवस से पहले affidavit.eci.gov.in पर सत्यापित करें",
+    "constituency.noDataMessage": "इस निर्वाचन क्षेत्र के उम्मीदवार डेटा चुनाव तिथि के नजदीक आने पर उपलब्ध होगा। वर्तमान जानकारी के लिए आधिकारिक ECI पोर्टल पर जाएं",
+    "constituency.verifyAt": "ECI पोर्टल पर सत्यापित करें",
   },
 };
 

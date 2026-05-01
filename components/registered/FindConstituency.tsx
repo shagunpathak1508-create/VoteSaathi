@@ -1,12 +1,22 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Landmark, ExternalLink, Loader2 } from "lucide-react";
+import { MapPin, Landmark, ExternalLink, Loader2, Users } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useFirebaseUser } from "@/lib/useFirebaseUser";
 import { saveConstituency, loadConstituency } from "@/lib/firestoreHelpers";
 import { stateDistrictMap, districtConstituencyMap } from "@/lib/constituencyData";
+import { findCandidateData, districtsWithCandidateData } from "@/lib/candidateData";
+import type { ConstituencyData } from "@/lib/candidateData";
+
+// Respect prefers-reduced-motion
+const prefersReducedMotion =
+  typeof window !== "undefined"
+    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    : false;
+
+const staggerDelay = prefersReducedMotion ? 0 : 0.08;
 
 export default function FindConstituency() {
   const { t } = useLanguage();
@@ -15,10 +25,10 @@ export default function FindConstituency() {
   const [selectedState, setSelectedState] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [constituency, setConstituency] = useState<string | null>(null);
+  const [candidateData, setCandidateData] = useState<ConstituencyData | null>(null);
   const [loading, setLoading] = useState(false);
-  const [hydrated, setHydrated] = useState(false);
 
-  const sortedStates = Object.keys(stateDistrictMap).sort();
+  const sortedStates = useMemo(() => Object.keys(stateDistrictMap).sort(), []);
   const districts = selectedState ? stateDistrictMap[selectedState] || [] : [];
 
   // Load saved constituency from Firestore on mount
@@ -30,9 +40,9 @@ export default function FindConstituency() {
         setSelectedDistrict(saved.district);
         if (saved.constituency) {
           setConstituency(saved.constituency);
+          setCandidateData(findCandidateData(saved.constituency));
         }
       }
-      setHydrated(true);
     });
   }, [uid]);
 
@@ -40,25 +50,27 @@ export default function FindConstituency() {
     setSelectedState(value);
     setSelectedDistrict("");
     setConstituency(null);
+    setCandidateData(null);
   }, []);
 
   const handleDistrictChange = useCallback((value: string) => {
     setSelectedDistrict(value);
     setConstituency(null);
+    setCandidateData(null);
   }, []);
 
   const handleFind = useCallback(() => {
     if (!selectedState || !selectedDistrict) return;
-
     setLoading(true);
 
-    // Brief loading spinner for 600ms before showing results
     setTimeout(() => {
-      const result = districtConstituencyMap[selectedDistrict] || `${selectedDistrict} Parliamentary Constituency`;
+      const result =
+        districtConstituencyMap[selectedDistrict] ||
+        `${selectedDistrict} Parliamentary Constituency`;
       setConstituency(result);
+      setCandidateData(findCandidateData(result));
       setLoading(false);
 
-      // Save to Firestore
       if (uid) {
         saveConstituency(uid, {
           state: selectedState,
@@ -73,25 +85,10 @@ export default function FindConstituency() {
     setSelectedState("");
     setSelectedDistrict("");
     setConstituency(null);
+    setCandidateData(null);
   }, []);
 
-  const actionLinks = [
-    {
-      label: t("constituency.viewCandidates"),
-      href: "https://affidavit.eci.gov.in",
-      id: "view-candidates-link",
-    },
-    {
-      label: t("constituency.checkVoterList"),
-      href: "https://electoralsearch.eci.gov.in",
-      id: "check-voter-list-link",
-    },
-    {
-      label: t("constituency.pollingBoothInfo"),
-      href: "https://booth.eci.gov.in",
-      id: "polling-booth-info-link",
-    },
-  ];
+  const chevronSvg = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23FF6B00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`;
 
   return (
     <motion.div
@@ -134,7 +131,7 @@ export default function FindConstituency() {
                 onChange={(e) => handleStateChange(e.target.value)}
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white appearance-none cursor-pointer outline-none transition-all focus:border-[#FF6B00]/60 focus:ring-2 focus:ring-[#FF6B00]/20 backdrop-blur-md"
                 style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23FF6B00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`,
+                  backgroundImage: chevronSvg,
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "right 12px center",
                 }}
@@ -166,7 +163,7 @@ export default function FindConstituency() {
                     : "text-white cursor-pointer focus:border-[#FF6B00]/60 focus:ring-2 focus:ring-[#FF6B00]/20"
                 }`}
                 style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23FF6B00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`,
+                  backgroundImage: chevronSvg,
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "right 12px center",
                 }}
@@ -176,7 +173,7 @@ export default function FindConstituency() {
                 </option>
                 {districts.map((district) => (
                   <option key={district} value={district} className="bg-[#0f172a] text-white">
-                    {district}
+                    {districtsWithCandidateData.has(district) ? `\u2B50 ${district}` : district}
                   </option>
                 ))}
               </select>
@@ -209,46 +206,152 @@ export default function FindConstituency() {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="space-y-4"
           >
-            {/* Constituency Result */}
+            {/* Constituency Header */}
             <div className="bg-[#FF6B00]/8 border border-[#FF6B00]/20 rounded-xl p-4 flex items-start gap-3">
               <div
                 className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
                 style={{ background: "#FF6B0020", border: "1px solid #FF6B0040" }}
               >
-                <Landmark className="w-4.5 h-4.5 text-[#FF6B00]" />
+                <Landmark className="w-4 h-4 text-[#FF6B00]" />
               </div>
-              <div>
-                <p className="text-xs text-slate-400 mb-0.5">{t("constituency.yourConstituency")}</p>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs text-slate-400 mb-0.5">
+                  {t("constituency.yourConstituency")}
+                </p>
                 <p className="text-[#FF6B00] font-bold text-base font-rajdhani leading-snug">
-                  {constituency}
+                  {candidateData ? candidateData.constituencyName : constituency}
                 </p>
-                <p className="text-xs text-slate-500 mt-1">
-                  {selectedDistrict}, {selectedState}
-                </p>
+                <div className="flex flex-wrap items-center gap-3 mt-1">
+                  <span className="text-xs text-slate-500">
+                    {selectedDistrict}, {selectedState}
+                  </span>
+                  {candidateData && (
+                    <span className="flex items-center gap-1 text-xs text-slate-400">
+                      <Users className="w-3 h-3" />
+                      {t("constituency.totalVoters")}: {candidateData.totalVoters}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-              {actionLinks.map((link) => (
+            {candidateData ? (
+              <>
+                {/* Candidate Count */}
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-slate-400 font-medium">
+                    {t("constituency.candidates")}
+                  </p>
+                  <span className="text-[10px] text-slate-500 bg-white/5 px-2 py-0.5 rounded-full border border-white/8">
+                    {candidateData.candidates.length} {t("constituency.candidates").toLowerCase()} + NOTA
+                  </span>
+                </div>
+
+                {/* Candidate Rows */}
+                <div className="space-y-2">
+                  {candidateData.candidates.map((candidate, i) => (
+                    <motion.div
+                      key={candidate.name}
+                      initial={prefersReducedMotion ? false : { opacity: 0, x: -12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: staggerDelay * i, duration: 0.25 }}
+                      className="bg-white/[0.03] rounded-xl p-3 flex items-center gap-3 border border-white/[0.06] hover:bg-white/[0.06] transition-colors"
+                      style={{ borderLeft: `3px solid ${candidate.partyColor}` }}
+                    >
+                      <span className="text-2xl shrink-0">{candidate.symbol}</span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-white font-rajdhani truncate">
+                          {candidate.name}
+                        </p>
+                        <p className="text-[11px] text-slate-500 truncate">{candidate.party}</p>
+                      </div>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        {candidate.incumbent && (
+                          <span className="text-[10px] font-semibold bg-[#FF6B00]/15 text-[#FF6B00] border border-[#FF6B00]/25 px-2 py-0.5 rounded-full">
+                            {t("constituency.incumbent")}
+                          </span>
+                        )}
+                        <span
+                          className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white"
+                          style={{ background: candidate.partyColor }}
+                        >
+                          {candidate.partyShort}
+                        </span>
+                      </div>
+                    </motion.div>
+                  ))}
+
+                  {/* NOTA Row */}
+                  <motion.div
+                    initial={prefersReducedMotion ? false : { opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      delay: staggerDelay * candidateData.candidates.length,
+                      duration: 0.25,
+                    }}
+                    className="bg-white/[0.02] rounded-xl p-3 flex items-center gap-3 border border-white/[0.04]"
+                    style={{ borderLeft: "3px solid #666666" }}
+                  >
+                    <span className="text-2xl shrink-0">{"\uD83D\uDDF3\uFE0F"}</span>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-slate-400 font-rajdhani">
+                        {t("constituency.nota")}
+                      </p>
+                    </div>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-700 text-slate-400">
+                      NOTA
+                    </span>
+                  </motion.div>
+                </div>
+
+                {/* Disclaimer Banner */}
+                <div className="bg-yellow-500/[0.06] border border-yellow-500/15 rounded-xl p-3 flex items-start gap-2.5">
+                  <span className="text-sm shrink-0 mt-0.5">{"\u26A0\uFE0F"}</span>
+                  <p className="text-[11px] text-yellow-500/80 leading-relaxed">
+                    {t("constituency.dataDisclaimer")}.{" "}
+                    <a
+                      href="https://affidavit.eci.gov.in"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-yellow-400 transition-colors"
+                    >
+                      {t("constituency.verifyAt")}
+                    </a>
+                  </p>
+                </div>
+
+                {/* Verify on ECI button */}
                 <a
-                  key={link.id}
-                  id={link.id}
-                  href={link.href}
+                  id="verify-eci-link"
+                  href="https://affidavit.eci.gov.in"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-between bg-transparent border border-[#FF6B00]/30 hover:bg-[#FF6B00] hover:border-[#FF6B00] text-slate-300 hover:text-white rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 group"
                 >
-                  <span className="text-xs sm:text-sm">{link.label}</span>
+                  <span className="text-xs sm:text-sm">{t("constituency.verifyAt")}</span>
                   <ExternalLink className="w-3.5 h-3.5 text-[#FF6B00] group-hover:text-white transition-colors shrink-0 ml-2" />
                 </a>
-              ))}
-            </div>
-
-            {/* Disclaimer */}
-            <p className="text-[10px] text-slate-600 text-center leading-relaxed">
-              {t("constituency.officialSource")}
-            </p>
+              </>
+            ) : (
+              <>
+                {/* No candidate data available */}
+                <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 text-center space-y-3">
+                  <p className="text-sm text-slate-400 leading-relaxed">
+                    {t("constituency.noDataMessage")}.
+                  </p>
+                  <a
+                    id="eci-fallback-link"
+                    href="https://affidavit.eci.gov.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-transparent border border-[#FF6B00]/30 hover:bg-[#FF6B00] hover:border-[#FF6B00] text-slate-300 hover:text-white rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-200 group"
+                  >
+                    <span>{t("constituency.verifyAt")}</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-[#FF6B00] group-hover:text-white transition-colors" />
+                  </a>
+                </div>
+              </>
+            )}
 
             {/* Search Again */}
             <button
@@ -256,7 +359,7 @@ export default function FindConstituency() {
               onClick={handleReset}
               className="w-full text-center text-xs text-[#FF6B00]/70 hover:text-[#FF6B00] transition-colors py-1"
             >
-              {t("constituency.searchAgain")} ↺
+              {t("constituency.searchAgain")} {"\u21BA"}
             </button>
           </motion.div>
         )}
