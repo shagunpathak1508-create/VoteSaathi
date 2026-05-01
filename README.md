@@ -8,9 +8,9 @@ Built as part of a prompt engineering challenge, this project demonstrates how p
 
 ---
 
-## 🚀 Live Demo
+##  Live Demo
 
-🔗 **Live App:** [YOUR FIREBASE URL]
+🔗 **Live App:** https://votesaathi-5a72b.web.app
 🔗 **GitHub Repo:** https://github.com/shagunpathak1508-create/VoteSaathi
 
 ---
@@ -104,7 +104,7 @@ A cinematic, control-room-inspired interface designed to feel like a mission con
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Frontend
 - Next.js (App Router)
@@ -118,7 +118,7 @@ A cinematic, control-room-inspired interface designed to feel like a mission con
 
 ---
 
-## 🧩 Project Architecture
+##  Project Architecture
 
 ```
 VoteSaathi/
@@ -137,7 +137,7 @@ VoteSaathi/
 
 ---
 
-## 🧠 Key Highlights
+##  Key Highlights
 
 - Built using **AI-assisted prompting**, minimizing manual coding
 - Focused on **user-centric design** and clarity
@@ -146,7 +146,7 @@ VoteSaathi/
 
 ---
 
-## 🔮 Future Scope
+##  Future Scope
 
 - Integrate real-time election data APIs
 - Expand constituency coverage nationwide
@@ -155,7 +155,7 @@ VoteSaathi/
 
 ---
 
-## 📌 Learnings
+##  Learnings
 
 - Prompt engineering can significantly accelerate development
 - Structuring user flows is as important as writing code
@@ -163,13 +163,13 @@ VoteSaathi/
 
 ---
 
-## 🙌 Acknowledgment
+##  Acknowledgment
 
 This project was built as part of a **prompt war competition**, exploring how AI can be used to build meaningful, real-world applications.
 
 ---
 
-## 📬 Feedback
+##  Feedback
 
 I'd love to hear your thoughts and suggestions!
 Feel free to open an issue or connect.
