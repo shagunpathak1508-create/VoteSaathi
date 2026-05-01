@@ -142,6 +142,18 @@ const translations: Record<Language, Record<string, string>> = {
     "shared.errorTitle": "Something went wrong",
     "shared.errorDesc": "Please try again. If the issue persists, call the ECI helpline at 1950.",
     "shared.loading": "Loading…",
+
+    // Find Constituency
+    "constituency.findConstituency": "Find Your Constituency",
+    "constituency.selectState": "Select State",
+    "constituency.selectDistrict": "Select District",
+    "constituency.findButton": "Find",
+    "constituency.yourConstituency": "Your Constituency",
+    "constituency.viewCandidates": "View Candidates & Affidavits",
+    "constituency.checkVoterList": "Check Voter List",
+    "constituency.pollingBoothInfo": "Polling Booth Info",
+    "constituency.officialSource": "Candidate data is sourced directly from the official ECI portal",
+    "constituency.searchAgain": "Search again",
   },
 
   hi: {
@@ -283,6 +295,18 @@ const translations: Record<Language, Record<string, string>> = {
     "shared.errorTitle": "कुछ गड़बड़ हो गई",
     "shared.errorDesc": "कृपया पुनः प्रयास करें। यदि समस्या बनी रहे, तो ECI हेल्पलाइन 1950 पर कॉल करें।",
     "shared.loading": "लोड हो रहा है…",
+
+    // Find Constituency
+    "constituency.findConstituency": "अपना निर्वाचन क्षेत्र खोजें",
+    "constituency.selectState": "राज्य चुनें",
+    "constituency.selectDistrict": "जिला चुनें",
+    "constituency.findButton": "खोजें",
+    "constituency.yourConstituency": "आपका निर्वाचन क्षेत्र",
+    "constituency.viewCandidates": "उम्मीदवार और शपथपत्र देखें",
+    "constituency.checkVoterList": "मतदाता सूची जांचें",
+    "constituency.pollingBoothInfo": "मतदान केंद्र की जानकारी",
+    "constituency.officialSource": "उम्मीदवार डेटा सीधे आधिकारिक ECI पोर्टल से लिया गया है",
+    "constituency.searchAgain": "फिर से खोजें",
   },
 };
 

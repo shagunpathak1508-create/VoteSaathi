@@ -4,6 +4,7 @@ import Navbar from "@/components/shared/Navbar";
 import ElectionTimeline from "@/components/registered/ElectionTimeline";
 import GuidanceSection from "@/components/registered/GuidanceSection";
 import QuickActions from "@/components/registered/QuickActions";
+import FindConstituency from "@/components/registered/FindConstituency";
 import ResultsSection from "@/components/registered/ResultsSection";
 import VoterReadinessChecklist from "@/components/registered/VoterReadinessChecklist";
 import ChatAssistant from "@/components/shared/ChatAssistant";
@@ -59,6 +60,9 @@ export default function RegisteredVoterPage() {
         >
           <QuickActions />
         </motion.div>
+
+        {/* Find Your Constituency */}
+        <FindConstituency />
 
         {/* Voter Readiness Score */}
         <VoterReadinessChecklist />

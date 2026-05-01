@@ -3,8 +3,10 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Bot } from "lucide-react";
-import { ChatFlow } from "@/lib/chatResponses";
+import { ChatFlow, getResponse } from "@/lib/chatResponses";
 import { useLanguage } from "@/lib/LanguageContext";
+import { useFirebaseUser } from "@/lib/useFirebaseUser";
+import { saveChatHistory, loadChatHistory, ChatMessage } from "@/lib/firestoreHelpers";
 import EmptyState from "@/components/shared/EmptyState";
 
 interface Message {
@@ -48,16 +50,48 @@ const suggestedQuestions: Record<ChatFlow, { en: string[]; hi: string[] }> = {
   },
 };
 
+const quickReplyChips = [
+  { label: "What to carry?", query: "What to carry on voting day?" },
+  { label: "How to register?", query: "How to register as a new voter?" },
+  { label: "Check results", query: "Where to check live election results?" },
+];
+
 export default function ChatAssistant({ flow }: ChatAssistantProps) {
   const { t, lang } = useLanguage();
+  const { uid } = useFirebaseUser();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [historyLoaded, setHistoryLoaded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Set welcome message based on language
+  // Load chat history from Firestore on mount
   useEffect(() => {
+    if (!uid || historyLoaded) return;
+    loadChatHistory(uid).then((saved) => {
+      if (saved && saved.length > 0) {
+        setMessages(saved);
+      } else {
+        // Set welcome message if no saved history
+        setMessages([
+          {
+            id: "welcome",
+            role: "bot",
+            text:
+              flow === "registered"
+                ? t("chat.welcomeRegistered")
+                : t("chat.welcomeNewVoter"),
+          },
+        ]);
+      }
+      setHistoryLoaded(true);
+    });
+  }, [uid, historyLoaded, flow, t]);
+
+  // Set welcome message when no uid yet or on language change (only if no saved history)
+  useEffect(() => {
+    if (historyLoaded) return;
     setMessages([
       {
         id: "welcome",
@@ -68,13 +102,13 @@ export default function ChatAssistant({ flow }: ChatAssistantProps) {
             : t("chat.welcomeNewVoter"),
       },
     ]);
-  }, [flow, lang, t]);
+  }, [flow, lang, t, historyLoaded]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
 
-  const sendMessage = async (text: string) => {
+  const sendMessage = (text: string) => {
     if (!text.trim() || isTyping) return;
 
     const userMsg: Message = {
@@ -82,42 +116,28 @@ export default function ChatAssistant({ flow }: ChatAssistantProps) {
       role: "user",
       text: text.trim(),
     };
-    setMessages((prev) => [...prev, userMsg]);
+    const updatedWithUser = [...messages, userMsg];
+    setMessages(updatedWithUser);
     setInput("");
     setIsTyping(true);
 
-    try {
-      // Send only last 10 messages as history to stay within token limits
-      const history = messages
-        .filter((m) => m.id !== "welcome")
-        .slice(-10)
-        .map((m) => ({ role: m.role, text: m.text }));
-
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text.trim(), history }),
-      });
-
-      if (!res.ok) throw new Error("API error");
-
-      const data = await res.json();
+    // 800ms typing animation before showing response
+    setTimeout(() => {
+      const responseText = getResponse(text.trim());
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: "bot",
-        text: data.text || t("chat.errorMessage"),
+        text: responseText,
       };
-      setMessages((prev) => [...prev, botMsg]);
-    } catch {
-      const errorMsg: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "bot",
-        text: t("chat.errorMessage"),
-      };
-      setMessages((prev) => [...prev, errorMsg]);
-    } finally {
+      const finalMessages = [...updatedWithUser, botMsg];
+      setMessages(finalMessages);
       setIsTyping(false);
-    }
+
+      // Save chat history to Firestore (fire-and-forget, last 20 messages)
+      if (uid) {
+        saveChatHistory(uid, finalMessages.slice(-20)).then().catch(() => {});
+      }
+    }, 800);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -247,6 +267,21 @@ export default function ChatAssistant({ flow }: ChatAssistantProps) {
                     className="text-xs px-3 py-1.5 rounded-full border border-[#FF6B00]/30 text-[#FF6B00] hover:bg-[#FF6B00]/10 transition-colors"
                   >
                     {q}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Quick Reply Chips — always visible below input */}
+            {messages.length > 1 && (
+              <div className="px-4 pb-1 flex flex-wrap gap-1.5 shrink-0">
+                {quickReplyChips.map((chip) => (
+                  <button
+                    key={chip.label}
+                    onClick={() => sendMessage(chip.query)}
+                    className="text-[10px] px-2.5 py-1 rounded-full border border-white/10 text-slate-400 hover:text-[#FF6B00] hover:border-[#FF6B00]/30 hover:bg-[#FF6B00]/5 transition-colors"
+                  >
+                    {chip.label}
                   </button>
                 ))}
               </div>

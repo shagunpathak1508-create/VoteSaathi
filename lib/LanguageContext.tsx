@@ -2,6 +2,8 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react";
 import { Language, t as translate } from "@/lib/i18n";
+import { useFirebaseUser } from "@/lib/useFirebaseUser";
+import { saveLanguage, loadLanguage } from "@/lib/firestoreHelpers";
 
 interface LanguageContextType {
   lang: Language;
@@ -17,18 +19,25 @@ const LanguageContext = createContext<LanguageContextType>({
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Language>("en");
+  const { uid } = useFirebaseUser();
 
+  // Load language preference from Firestore on mount (when uid becomes available)
   useEffect(() => {
-    const saved = localStorage.getItem("votesaathi_lang") as Language | null;
-    if (saved === "en" || saved === "hi") {
-      setLangState(saved);
-    }
-  }, []);
+    if (!uid) return;
+    loadLanguage(uid).then((savedLang) => {
+      if (savedLang === "en" || savedLang === "hi") {
+        setLangState(savedLang);
+      }
+    });
+  }, [uid]);
 
   const setLang = useCallback((newLang: Language) => {
     setLangState(newLang);
-    localStorage.setItem("votesaathi_lang", newLang);
-  }, []);
+    // Save language to Firestore (fire-and-forget)
+    if (uid) {
+      saveLanguage(uid, newLang).then().catch(() => {});
+    }
+  }, [uid]);
 
   const t = useCallback(
     (key: string) => translate(key, lang),

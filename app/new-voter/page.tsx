@@ -11,48 +11,65 @@ import VerificationStep from "@/components/new-voter/steps/VerificationStep";
 import VoterIdStep from "@/components/new-voter/steps/VoterIdStep";
 import ChatAssistant from "@/components/shared/ChatAssistant";
 import { useLanguage } from "@/lib/LanguageContext";
+import { useFirebaseUser } from "@/lib/useFirebaseUser";
+import { saveJourneyStep, loadJourneyStep } from "@/lib/firestoreHelpers";
 import { RotateCcw } from "lucide-react";
-
-const STEP_KEY = "votesaathi_step";
 
 export default function NewVoterPage() {
   const { t } = useLanguage();
+  const { uid } = useFirebaseUser();
   const [currentStep, setCurrentStep] = useState(0);
   const [showToast, setShowToast] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // Restore step from localStorage on mount
+  // Load journey step from Firestore on mount
   useEffect(() => {
-    const saved = localStorage.getItem(STEP_KEY);
-    if (saved !== null) {
-      const parsed = parseInt(saved, 10);
-      if (!isNaN(parsed) && parsed >= 0 && parsed <= 3) {
-        setCurrentStep(parsed);
+    if (!uid) return;
+    loadJourneyStep(uid).then((saved) => {
+      if (saved >= 0 && saved <= 3) {
+        setCurrentStep(saved);
       }
+      setMounted(true);
+    });
+  }, [uid]);
+
+  // Fallback mount if uid loads but Firestore is slow/unavailable
+  useEffect(() => {
+    if (uid && !mounted) {
+      const timer = setTimeout(() => setMounted(true), 500);
+      return () => clearTimeout(timer);
     }
-    setMounted(true);
-  }, []);
+  }, [uid, mounted]);
 
   const goNext = useCallback(() => {
     setCurrentStep((s) => {
       const next = Math.min(s + 1, 3);
-      localStorage.setItem(STEP_KEY, next.toString());
+      // Save to Firestore (fire-and-forget)
+      if (uid) {
+        saveJourneyStep(uid, next).then().catch(() => {});
+      }
       return next;
     });
     // Show toast
     setShowToast(true);
     setTimeout(() => setShowToast(false), 2000);
-  }, []);
+  }, [uid]);
 
   const restart = useCallback(() => {
     setCurrentStep(0);
-    localStorage.removeItem(STEP_KEY);
-  }, []);
+    // Save reset to Firestore (fire-and-forget)
+    if (uid) {
+      saveJourneyStep(uid, 0).then().catch(() => {});
+    }
+  }, [uid]);
 
   const handleStepClick = useCallback((step: number) => {
     setCurrentStep(step);
-    localStorage.setItem(STEP_KEY, step.toString());
-  }, []);
+    // Save to Firestore (fire-and-forget)
+    if (uid) {
+      saveJourneyStep(uid, step).then().catch(() => {});
+    }
+  }, [uid]);
 
   const stepComponents = [
     <EligibilityStep key="eligibility" onNext={goNext} />,

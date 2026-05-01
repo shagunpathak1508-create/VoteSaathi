@@ -1,172 +1,129 @@
-<p align="center">
-  <img src="https://img.shields.io/badge/🗳️-VoteSaathi-FF6B00?style=for-the-badge&labelColor=0A0A14" alt="VoteSaathi" />
-</p>
+# 🗳️ VoteSaathi — Your Election Companion
 
-<h1 align="center">VoteSaathi – Your Election Companion</h1>
-
-<p align="center">
-  <strong>"Built entirely with AI prompts — a cinematic election assistant for 970 million Indian voters."</strong>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Next.js-14-000000?style=flat-square&logo=nextdotjs" />
-  <img src="https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black" />
-  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" />
-  <img src="https://img.shields.io/badge/Framer_Motion-11-FF0055?style=flat-square&logo=framer&logoColor=white" />
-</p>
-
----
+**VoteSaathi** is an intelligent, bilingual (English & Hindi) election assistant for Indian voters. Built with a futuristic "Digital India War Room" design, it guides both registered and first-time voters through every step of the election process.
 
 ## ✨ Features
 
-### 🗳️ For Registered Voters
-- **Election Timeline** — Live status tracker with power-on sequential animation
-- **Voter Readiness Score** — Interactive checklist with neon glow progress ring
-- **Quick Actions** — What to carry, how to vote, find polling booth
-- **Election Results** — Real-time results section with ECI portal integration
-- **AI Chat Assistant** — Powered by Claude AI for instant election queries
+- **Smart Chat Assistant** — Instant answers to 25+ election queries (voter registration, polling day, voter ID, BLO, results, NRI voting, complaints & more)
+- **EVM Simulator** — Practice voting on a realistic Electronic Voting Machine with sound and animations
+- **Voter Readiness Checklist** — Track your election-day preparation with cloud-synced progress
+- **New Voter Journey** — Step-by-step guidance from eligibility check to getting your voter ID
+- **Election Timeline** — Live status of upcoming elections
+- **Bilingual Support** — Full English & Hindi interface with persistent language preference
+- **Cloud Persistence** — All user data (checklist, journey progress, language, chat history) synced via Firebase Firestore
+- **Anonymous Auth** — No login required; every visitor gets a persistent anonymous identity
 
-### 🆕 For First-Time Voters
-- **Step-by-Step Registration Journey** — Eligibility → Register → Verification → Voter ID
-- **Progress Persistence** — Journey progress saved to localStorage
-- **Interactive Guidance** — Detailed instructions for Form 6, BLO verification, e-EPIC
+## 🛠️ Tech Stack
 
-### 🗳️ EVM Practice Simulator
-- **Realistic EVM Interface** — Practice casting votes on a simulated Electronic Voting Machine
-- **Web Audio Feedback** — Authentic beep sound on vote confirmation
-- **Tactile Button Animation** — Physical press feel with CSS micro-interactions
-
-### 🌐 Bilingual Support
-- Full **English** and **Hindi** translations
-- Language preference persisted across sessions
-
----
-
-## 🎨 Design: "Digital India War Room"
-
-VoteSaathi features a cinematic, control-room-style interface:
-
-| Element | Detail |
-|---------|--------|
-| **Background** | Deep space black (`#0A0A14`) with circuit grid overlay |
-| **Accent Colors** | Saffron (`#FF6B00`), India Green (`#138808`), Navy (`#000080`) |
-| **Cards** | Glassmorphism with `backdrop-blur`, glow-on-hover |
-| **Typography** | Rajdhani (headings), Inter (body), Fira Code (data) |
-| **Landing Page** | Particle canvas + typing hero + classified dossier cards |
-| **Animations** | Power-on timeline, briefing panel chat, neon progress ring |
-
----
+- **Framework:** Next.js 14 (Static Export)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS + Custom CSS (Glassmorphism, War Room theme)
+- **Animations:** Framer Motion
+- **Icons:** Lucide React
+- **Backend:** Firebase (Firestore + Anonymous Auth)
+- **Hosting:** Firebase Hosting
+- **Fonts:** Inter, Rajdhani, Fira Code
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- **Node.js** 18+ 
-- **npm** 9+
+
+- Node.js 18+
+- npm or yarn
+- Firebase project (see Firebase Setup below)
 
 ### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/shagunpathak1508-create/VoteSaathi.git
+git clone <your-repo-url>
 cd VoteSaathi
-
-# Install dependencies
 npm install
+```
 
-# Start development server
+### Firebase Setup
+
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Create a new project (or use existing)
+3. Enable **Firestore Database** (Start in test mode)
+4. Enable **Authentication** → Sign-in method → **Anonymous** (toggle ON)
+5. Go to Project Settings → Your apps → Add a Web app
+6. Copy the config values into `.env.local`:
+
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.firebasestorage.app
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+```
+
+### Development
+
+```bash
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Environment Variables
+### Build & Deploy
 
-To enable the AI Chat Assistant, create a `.env.local` file:
+```bash
+# Build static export
+npm run build
 
-```env
-ANTHROPIC_API_KEY=your_api_key_here
+# Deploy to Firebase Hosting
+firebase deploy
+
+# Or do both in one command
+npm run deploy
 ```
-
-> The chat feature uses the Claude API. Without the key, the assistant will show an error message but the rest of the app works perfectly.
-
----
 
 ## 📁 Project Structure
 
 ```
 VoteSaathi/
 ├── app/
-│   ├── api/chat/          # AI chat API route (Claude)
-│   ├── evm-simulator/     # EVM practice page
-│   ├── new-voter/         # First-time voter journey
-│   ├── registered/        # Registered voter dashboard
-│   ├── globals.css        # War Room theme styles
-│   ├── layout.tsx         # Root layout + fonts
-│   └── page.tsx           # Landing page (particles + typing hero)
+│   ├── page.tsx              # Landing page
+│   ├── layout.tsx            # Root layout with metadata
+│   ├── globals.css           # Global styles & War Room theme
+│   ├── registered/           # Registered voter dashboard
+│   ├── new-voter/            # New voter journey
+│   └── evm-simulator/        # EVM practice simulator
 ├── components/
-│   ├── new-voter/         # Step tracker, step components
-│   ├── registered/        # Timeline, readiness, quick actions, results
-│   └── shared/            # Navbar, ChatAssistant, Modal, ErrorCard
+│   ├── shared/               # ChatAssistant, Navbar, Modal, etc.
+│   ├── registered/           # VoterReadiness, QuickActions, etc.
+│   └── new-voter/            # Step components & trackers
 ├── lib/
-│   ├── i18n.ts            # EN/HI translations
-│   ├── LanguageContext.tsx # Language provider
-│   ├── electionConfig.ts  # Election state configuration
-│   └── chatResponses.ts   # Chat flow types
-├── tailwind.config.ts
-├── next.config.mjs
-└── package.json
+│   ├── firebase.ts           # Firebase initialization
+│   ├── useFirebaseUser.ts    # Anonymous auth hook
+│   ├── firestoreHelpers.ts   # Firestore CRUD functions
+│   ├── chatResponses.ts      # 25+ keyword-matched responses
+│   ├── LanguageContext.tsx    # Bilingual context provider
+│   ├── i18n.ts               # Translation strings
+│   └── electionConfig.ts     # Election date configuration
+├── firebase.json             # Firebase Hosting config
+├── .firebaserc               # Firebase project alias
+└── .env.local                # Firebase credentials (not committed)
 ```
 
----
+## 🔥 Firestore Data Model
 
-## 🛠️ Tech Stack
+```
+users/{uid}
+├── readiness: { item1: bool, item2: bool, ... }
+├── journeyStep: number
+├── language: 'en' | 'hi'
+├── chatHistory: ChatMessage[]
+└── lastSeen: timestamp
+```
 
-| Technology | Purpose |
-|-----------|---------|
-| **Next.js 14** | React framework with App Router |
-| **React 18** | UI library |
-| **TypeScript** | Type safety |
-| **Tailwind CSS 3** | Utility-first styling |
-| **Framer Motion** | Animations and transitions |
-| **Lucide React** | Icon library |
-| **Claude AI (Anthropic)** | Chat assistant backend |
+## 📞 Help & Support
 
----
-
-## 📱 Pages
-
-| Route | Description |
-|-------|-------------|
-| `/` | Landing page — choose Registered or New Voter |
-| `/registered` | Voter dashboard with timeline, actions, readiness |
-| `/new-voter` | 4-step registration journey |
-| `/evm-simulator` | Practice EVM with audio feedback |
-
----
-
-## 🔑 Key Design Decisions
-
-- **No heavy particle libraries** — Custom lightweight `<canvas>` with ~40 particles
-- **CSS-first animations** — Minimal JS, maximum performance
-- **Framer Motion** only where React state integration is needed
-- **localStorage persistence** — Language, step progress, readiness checklist
-- **ECI-aligned content** — All voter information follows Election Commission guidelines
-
----
-
-## 📜 Disclaimer
-
-> **VoteSaathi** is an informational assistant aligned with ECI (Election Commission of India) guidelines. It is **not** an official government portal. For official services, visit [voters.eci.gov.in](https://voters.eci.gov.in) or call the ECI helpline at **1950**.
-
----
+- **ECI Helpline:** 1950 (toll-free)
+- **Voter Portal:** https://voters.eci.gov.in
+- **Voter Helpline App:** Available on Play Store & App Store
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-<p align="center">
-  <strong>VoteSaathi</strong> — Know your vote. Own your democracy. 🇮🇳
-</p>
+This project is for educational and civic engagement purposes.
