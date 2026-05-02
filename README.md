@@ -1,175 +1,251 @@
-# 🇮🇳 VoteSaathi – Election Assistant
+# VoteSaathi 🗳️🇮🇳
+### *Know your vote. Own your democracy.*
 
-**Know your vote. Own your democracy.**
+> A cinematic, interactive election assistant built for India's 970 million voters — guiding them through every step of the democratic process with clarity, confidence, and real data.
 
-VoteSaathi is an AI-powered election assistant designed to help Indian citizens understand and navigate the complete voting process — from registration to results — in a simple, interactive, and guided way.
-
-Built as part of a prompt engineering challenge, this project demonstrates how powerful AI-assisted development can be when combined with structured thinking and modern web technologies.
-
----
-
-##  Live Demo
-
-🔗 **Live App:** https://votesaathi-5a72b.web.app
-🔗 **GitHub Repo:** https://github.com/shagunpathak1508-create/VoteSaathi
+**[Live Demo →](https://votesaathi-5a72b.web.app)** · **[GitHub →](https://github.com/shagunpathak1508-create/VoteSaathi)**
 
 ---
 
-## 🎯 Problem Statement
+## What is VoteSaathi?
 
-With over **970 million eligible voters** in India, many still struggle with:
+VoteSaathi is a full-stack web application that helps Indian voters — both registered and first-time — understand and navigate the entire election process. Built for a prompt war competition, it answers the challenge: *"How do you make 970 million people feel confident about voting?"*
 
-- Checking voter registration status
-- Understanding the voting process
-- Knowing what to carry on voting day
-- Registering as a first-time voter
-- Finding constituency and candidate information
-
-**VoteSaathi** aims to simplify this journey and make voting more accessible and understandable for everyone.
+The answer: a mission-control-style interface, real 2024 Lok Sabha candidate data, step-by-step guidance, a bilingual experience, and a smart chat assistant — all in one place.
 
 ---
 
-## 💡 Solution
+## Features
 
-VoteSaathi acts as a smart digital assistant that guides users step-by-step through the election process using:
+### 🗳️ For Registered Voters
 
-- Interactive UI flows
-- Context-aware assistance
-- AI-powered responses
-- Visual learning components
+**Election Timeline** — A cinematic, sequential power-on tracker showing the four stages of an Indian election: Announced → Voting Ongoing → Counting → Results. The active stage pulses with a neon glow animation.
 
----
+**Voter Readiness Score** — An interactive checklist with 5 items and an SVG progress ring that fills with a neon glow as you check off items. Hit 5/5 and unlock a shareable "I'm ready to vote" card with a copy-to-clipboard button. State persists across devices via Firebase Firestore.
 
-## ✨ Features
+**Quick Actions** — Three centered overlay modals covering the most common voter queries:
+- What to carry on voting day
+- Step-by-step EVM voting instructions
+- How to find your polling booth
 
-### 🗳️ Registered Voter Dashboard
-- Live election timeline (Announced → Voting → Counting → Results)
-- Context-aware guidance ("What should I do now?")
-- Quick actions for voting day instructions
-- Results status tracking
+**Election Results** — A live results card that updates based on the current election stage configured in `electionConfig.ts`.
 
-### 🆕 First-Time Voter Journey
-- Step-by-step guided flow:
-  - Eligibility Check
-  - Registration (Form 6)
-  - Verification Process
-  - Voter ID Issuance
-- Progress tracker with completion states
-- Personalized "Next Step" guidance
+### 🆕 For First-Time Voters
+
+**4-Step Registration Journey** — A guided flow across four stages: Eligibility check → Form 6 registration → BLO verification → e-EPIC voter ID. Each step includes detailed instructions aligned with ECI guidelines.
+
+**Progress Persistence** — Journey step saved to Firebase Firestore so users resume exactly where they left off across sessions and devices.
+
+**Eligibility Quiz** — Age and citizenship check that routes users to the correct next step or shows an ineligible result card.
 
 ### 🖥️ EVM Practice Simulator
-- Interactive voting simulation
-- Candidate selection and confirmation
-- Visual + audio feedback for realism
-- Helps users understand how voting machines work
 
-### 🧠 AI Chat Assistant
-- Answers 25+ common election-related queries
-- Provides simple, beginner-friendly explanations
-- Context-aware responses based on user journey
-- Helps users navigate complex processes easily
+A fully interactive mock Electronic Voting Machine with 5 candidates + NOTA:
+- Candidate selection with row highlight
+- Web Audio API beep on vote confirmation
+- CSS micro-interaction press animation on the VOTE button
+- "Vote Recorded ✓" confirmation screen
+- Reset to try again
 
-### 🗺️ Find Your Constituency
-- Search or select your constituency
-- View candidate details:
-  - Name
-  - Party
-  - Symbol
-- 🔹 **Hybrid Data Approach:**
-  - 📍 Preloaded dataset for major constituencies (Mumbai, Delhi, Chennai, Pune, etc.)
-  - 🌐 Fallback to official sources via Election Commission of India for other regions
-- Ensures a smooth demo experience while maintaining scalability.
+### 📍 Find Your Constituency & Candidates
 
-### 📊 Voter Readiness Score
-- Interactive checklist to track voting preparedness
-- Visual progress ring
-- Encourages users to complete all required steps
+Users select their state and district to instantly see:
+- Their Lok Sabha constituency name
+- Real 2024 candidate data for 10 major constituencies (Mumbai North, Mumbai South, New Delhi, Pune, Chennai Central, Bengaluru South, Hyderabad, Kolkata North, Lucknow, Ahmedabad East)
+- For each candidate: declared assets, criminal cases, education qualification, and winner status
+- NOTA option always shown at the bottom
+- Deep link to MyNeta for full official affidavit details
+- For all other constituencies, a direct link to the MyNeta 2024 Lok Sabha page
 
-### 🌐 Multilingual Support
-- Supports English + Hindi
-- Improves accessibility for a wider audience
+> ⚠️ **Data note:** Candidate data for the 10 featured constituencies is based on publicly reported ADR/MyNeta 2024 Lok Sabha analysis and ECI results. Figures are approximate. Always verify exact details at [myneta.info](https://myneta.info/LokSabha2024/).
 
----
+### 💬 Smart Chat Assistant
 
-## 🎨 Design Theme
+A floating briefing-panel style chat assistant with 25+ pre-programmed responses covering:
+- Voter registration (Form 6, NVSP, eligibility, documents)
+- Polling day (what to carry, EVM usage, NOTA, booth timing)
+- Voter ID (EPIC card, e-EPIC download, lost card, name correction)
+- BLO verification process and timeline
+- NRI voting (Form 6A, overseas process)
+- Complaints and ECI helpline (1950)
 
-> **"Digital India War Room"**
+Includes quick-reply chips, 800ms typing simulation, and chat history persisted via Firebase.
 
-A cinematic, control-room-inspired interface designed to feel like a mission control center for democracy.
+### 🌐 Bilingual — English & Hindi
 
-- Dark UI with tricolor accents 🇮🇳
-- Glassmorphism panels
-- Animated timelines and interactions
-- Clean, data-focused layout
+Full translation coverage across all pages, components, labels, and chat strings. Language preference persisted in Firebase. One-tap toggle in the navbar.
 
 ---
 
-##  Tech Stack
+## Design: Digital India War Room
 
-### Frontend
-- Next.js (App Router)
-- React
-- Tailwind CSS
-- Framer Motion
+VoteSaathi's visual identity is inspired by mission control centers — dark, data-dense, and cinematic. Every interaction feels urgent and important, because voting is.
 
-### Backend & Services
-- Firebase (Firestore for data persistence)
-- AI-powered prompting (Google ecosystem integration)
+| Element | Detail |
+|---|---|
+| Background | Deep space black `#0A0A14` with circuit-grid overlay |
+| Primary Accent | Saffron `#FF6B00` — active states, CTAs, winner badges |
+| Secondary Accent | India Green `#138808` — success states, verified badges |
+| Tertiary | Navy `#000080` — borders, secondary elements |
+| Cards | Glassmorphism — `backdrop-blur`, `bg-white/10`, glow on hover |
+| Headings | Rajdhani (condensed, bold) |
+| Body | Inter (clean, readable) |
+| Data readouts | Fira Code (monospace — stat chips, counts) |
+| Landing | Particle canvas + letter-by-letter typing hero + classified dossier cards |
+| Animations | Framer Motion — power-on timeline, stagger candidate cards, slide-up chat |
 
 ---
 
-##  Project Architecture
+## Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| Next.js 14 (App Router) | React framework, static export |
+| TypeScript | Type safety throughout |
+| Tailwind CSS v3 | Utility-first styling |
+| Framer Motion | Animations and transitions |
+| Lucide React | Icon library |
+| Firebase Firestore | Cross-device data persistence |
+| Firebase Auth (Anonymous) | Persistent user identity without login |
+| Firebase Hosting | Static site deployment |
+
+---
+
+## Project Structure
 
 ```
 VoteSaathi/
 ├── app/
-│   ├── page.tsx (Landing)
-│   ├── registered/ (Dashboard)
-│   └── new-voter/ (Guided flow)
+│   ├── evm-simulator/        # EVM practice page
+│   ├── new-voter/            # First-time voter 4-step journey
+│   ├── registered/           # Registered voter dashboard
+│   ├── globals.css           # War Room theme + animations
+│   ├── layout.tsx            # Root layout, fonts, metadata
+│   └── page.tsx              # Landing page — particles + typing hero
 ├── components/
-│   ├── registered/
-│   ├── new-voter/
-│   └── shared/
+│   ├── new-voter/            # StepTracker, step components
+│   ├── registered/           # Timeline, ReadinessScore, QuickActions,
+│   │                         # FindConstituency, Results
+│   └── shared/               # Navbar, ChatAssistant, Modal, ErrorCard
 ├── lib/
-│   ├── electionConfig.ts
-│   └── i18n.ts
+│   ├── constituencyData.ts   # State → District → Constituency mapping
+│   ├── electionConfig.ts     # Current election stage configuration
+│   ├── firebase.ts           # Firebase app initialisation
+│   ├── firestoreHelpers.ts   # Read/write helpers for all user data
+│   ├── formatters.ts         # Asset value formatter (₹ Cr / L)
+│   ├── i18n.ts               # EN + HI translation strings
+│   ├── LanguageContext.tsx   # Language provider
+│   ├── types.ts              # Shared TypeScript interfaces
+│   ├── useCandidateData.ts   # JSON fetch hook with module-level cache
+│   └── useFirebaseUser.ts    # Anonymous auth hook
+├── public/
+│   └── data/
+│       └── candidates2024.json  # 2024 Lok Sabha candidate data
+├── firebase.json             # Firebase Hosting config
+├── .firebaserc               # Firebase project link
+└── next.config.mjs           # Static export config
 ```
 
 ---
 
-##  Key Highlights
+## Pages
 
-- Built using **AI-assisted prompting**, minimizing manual coding
-- Focused on **user-centric design** and clarity
-- Combines **education + interaction + guidance**
-- Designed for first-time voters and general users alike
-
----
-
-##  Future Scope
-
-- Integrate real-time election data APIs
-- Expand constituency coverage nationwide
-- Add polling booth locator with maps
-- Improve AI assistant with deeper personalization
+| Route | Description |
+|---|---|
+| `/` | Landing — choose Registered Voter or First-Time Voter |
+| `/registered` | Dashboard — timeline, readiness, quick actions, constituency finder, results |
+| `/new-voter` | 4-step registration journey with progress persistence |
+| `/evm-simulator` | Interactive EVM practice with audio feedback |
 
 ---
 
-##  Learnings
+## Getting Started
 
-- Prompt engineering can significantly accelerate development
-- Structuring user flows is as important as writing code
-- AI tools are powerful when guided with clear intent
+**Prerequisites:** Node.js 18+, npm 9+, Firebase CLI
+
+```bash
+# Clone the repository
+git clone https://github.com/shagunpathak1508-create/VoteSaathi.git
+cd VoteSaathi
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+# Fill in your Firebase config values
+
+# Start development server
+npm run dev
+```
+
+Open `http://localhost:3000`
+
+**Environment Variables (.env.local):**
+```
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+```
 
 ---
 
-##  Acknowledgment
+## Deployment
 
-This project was built as part of a **prompt war competition**, exploring how AI can be used to build meaningful, real-world applications.
+```bash
+# Build and deploy in one command
+npm run deploy
+```
+
+Or separately:
+```bash
+npm run build
+firebase deploy
+```
 
 ---
 
-##  Feedback
+## Data & Attribution
 
-I'd love to hear your thoughts and suggestions!
-Feel free to open an issue or connect.
+Candidate data for the 10 featured constituencies is sourced from publicly reported ADR/MyNeta analysis of the 2024 Lok Sabha election and ECI declared results. All voter guidance content follows official ECI guidelines.
+
+**Attribution:**
+- Candidate affidavit information: [MyNeta](https://myneta.info) by Association for Democratic Reforms (ADR)
+- Official voter services: [Election Commission of India](https://voters.eci.gov.in)
+
+---
+
+## Future Roadmap
+
+The candidate data feature is currently limited to 10 major constituencies with approximate figures. Here is what becomes possible with official data access:
+
+**Full 543 constituency coverage** — ADR provides API access to media organisations upon request at info@adrindia.org. With API access, all constituencies can be covered with verified affidavit data including exact asset breakdowns, liabilities, and IPC section-wise criminal case details.
+
+**Real-time data sync** — A Firebase Cloud Function that periodically fetches updated ADR data and refreshes the candidate JSON automatically before each election cycle, so no manual update is needed.
+
+**State Assembly elections** — MyNeta covers all 28 state assemblies. The same constituency finder can be extended to show MLA candidates for Vidhan Sabha elections, making VoteSaathi relevant year-round and not just during Lok Sabha cycles.
+
+**Historical wealth comparison** — ADR data goes back to 2004. A view showing how a candidate's declared assets changed across elections would be a powerful transparency feature unique to VoteSaathi.
+
+**Live counting results** — ECI publishes live counting data at results.eci.gov.in during counting day. A Firebase Cloud Function polling this endpoint could power a real-time results dashboard inside the app.
+
+**Multilingual expansion** — The current bilingual (EN/HI) system is built to scale. Adding Tamil, Telugu, Bengali, Marathi, and Kannada would make VoteSaathi accessible to the majority of India's electorate in their native language.
+
+---
+
+## Disclaimer
+
+VoteSaathi is an independent informational assistant and is not an official government portal. Candidate data figures are approximate and based on publicly reported ADR analysis — always verify exact details at [myneta.info](https://myneta.info/LokSabha2024/). For official voter services visit [voters.eci.gov.in](https://voters.eci.gov.in) or call the ECI Helpline at **1950**.
+
+---
+
+## License
+
+MIT License — open source and free to use.
+
+---
+
+*VoteSaathi — Know your vote. Own your democracy. 🇮🇳*
