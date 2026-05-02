@@ -335,3 +335,22 @@ export const districtConstituencyMap: Record<string, string> = {
   "Yanam": "Puducherry",
   "Ozhukarai": "Puducherry",
 };
+
+// MyNeta 2024 Lok Sabha constituency ID deep links for major districts
+export const myneta2024ConstituencyIds: Record<string, string> = {
+  "Mumbai": "https://myneta.info/LokSabha2024/index.php?constituency_id=31",
+  "Pune": "https://myneta.info/LokSabha2024/index.php?constituency_id=25",
+  "Nagpur": "https://myneta.info/LokSabha2024/index.php?constituency_id=13",
+  "New Delhi": "https://myneta.info/LokSabha2024/index.php?constituency_id=16",
+  "Chennai": "https://myneta.info/LokSabha2024/index.php?constituency_id=6",
+  "Bengaluru": "https://myneta.info/LokSabha2024/index.php?constituency_id=24",
+  "Hyderabad": "https://myneta.info/LokSabha2024/index.php?constituency_id=6",
+  "Kolkata": "https://myneta.info/LokSabha2024/index.php?constituency_id=22",
+  "Ahmedabad": "https://myneta.info/LokSabha2024/index.php?constituency_id=14",
+  "Lucknow": "https://myneta.info/LokSabha2024/index.php?constituency_id=51",
+  "Patna": "https://myneta.info/LokSabha2024/index.php?constituency_id=23",
+  "Jaipur": "https://myneta.info/LokSabha2024/index.php?constituency_id=20",
+  "Bhopal": "https://myneta.info/LokSabha2024/index.php?constituency_id=27",
+  "Chandigarh": "https://myneta.info/LokSabha2024/index.php?constituency_id=2",
+  "Surat": "https://myneta.info/LokSabha2024/index.php?constituency_id=20",
+};

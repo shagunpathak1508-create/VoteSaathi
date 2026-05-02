@@ -1,0 +1,472 @@
+{
+  "Mumbai North": {
+    "constituencyName": "Mumbai North",
+    "state": "Maharashtra",
+    "mynetaUrl": "https://myneta.info/LokSabha2024/",
+    "candidates": [
+      {
+        "name": "Piyush Goyal",
+        "party": "BJP",
+        "partyFull": "Bharatiya Janata Party",
+        "criminalCases": 0,
+        "totalAssets": "550000000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": true
+      },
+      {
+        "name": "Bhushan Patil",
+        "party": "INC",
+        "partyFull": "Indian National Congress",
+        "criminalCases": 0,
+        "totalAssets": "32000000",
+        "totalLiabilities": "4500000",
+        "education": "Graduate",
+        "winner": false
+      },
+      {
+        "name": "Naresh Mhaske",
+        "party": "SHS-UBT",
+        "partyFull": "Shiv Sena (Uddhav Balasaheb Thackeray)",
+        "criminalCases": 1,
+        "totalAssets": "78000000",
+        "totalLiabilities": "9000000",
+        "education": "Graduate",
+        "winner": false
+      },
+      {
+        "name": "Jayant Patil",
+        "party": "BSP",
+        "partyFull": "Bahujan Samaj Party",
+        "criminalCases": 0,
+        "totalAssets": "1800000",
+        "totalLiabilities": "0",
+        "education": "12th Pass",
+        "winner": false
+      }
+    ]
+  },
+  "Mumbai South": {
+    "constituencyName": "Mumbai South",
+    "state": "Maharashtra",
+    "mynetaUrl": "https://myneta.info/LokSabha2024/",
+    "candidates": [
+      {
+        "name": "Arvind Sawant",
+        "party": "SHS-UBT",
+        "partyFull": "Shiv Sena (Uddhav Balasaheb Thackeray)",
+        "criminalCases": 2,
+        "totalAssets": "46000000",
+        "totalLiabilities": "0",
+        "education": "Graduate",
+        "winner": true
+      },
+      {
+        "name": "Yamini Jadhav",
+        "party": "SHS",
+        "partyFull": "Shiv Sena",
+        "criminalCases": 0,
+        "totalAssets": "12000000",
+        "totalLiabilities": "0",
+        "education": "12th Pass",
+        "winner": false
+      },
+      {
+        "name": "Milind Deora",
+        "party": "SHS",
+        "partyFull": "Shiv Sena",
+        "criminalCases": 0,
+        "totalAssets": "245000000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": false
+      },
+      {
+        "name": "Bala Nandgaonkar",
+        "party": "MNS",
+        "partyFull": "Maharashtra Navnirman Sena",
+        "criminalCases": 3,
+        "totalAssets": "9500000",
+        "totalLiabilities": "0",
+        "education": "12th Pass",
+        "winner": false
+      }
+    ]
+  },
+  "New Delhi": {
+    "constituencyName": "New Delhi",
+    "state": "Delhi",
+    "mynetaUrl": "https://myneta.info/LokSabha2024/",
+    "candidates": [
+      {
+        "name": "Bansuri Swaraj",
+        "party": "BJP",
+        "partyFull": "Bharatiya Janata Party",
+        "criminalCases": 0,
+        "totalAssets": "92000000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": true
+      },
+      {
+        "name": "Somnath Bharti",
+        "party": "AAP",
+        "partyFull": "Aam Aadmi Party",
+        "criminalCases": 4,
+        "totalAssets": "56000000",
+        "totalLiabilities": "3000000",
+        "education": "Post Graduate",
+        "winner": false
+      },
+      {
+        "name": "Sandeep Dikshit",
+        "party": "INC",
+        "partyFull": "Indian National Congress",
+        "criminalCases": 0,
+        "totalAssets": "110000000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": false
+      },
+      {
+        "name": "Ram Kumar Balmiki",
+        "party": "BSP",
+        "partyFull": "Bahujan Samaj Party",
+        "criminalCases": 0,
+        "totalAssets": "2500000",
+        "totalLiabilities": "0",
+        "education": "Graduate",
+        "winner": false
+      }
+    ]
+  },
+  "Pune": {
+    "constituencyName": "Pune",
+    "state": "Maharashtra",
+    "mynetaUrl": "https://myneta.info/LokSabha2024/",
+    "candidates": [
+      {
+        "name": "Murlidhar Mohol",
+        "party": "BJP",
+        "partyFull": "Bharatiya Janata Party",
+        "criminalCases": 0,
+        "totalAssets": "105000000",
+        "totalLiabilities": "8000000",
+        "education": "Graduate",
+        "winner": true
+      },
+      {
+        "name": "Ravindra Dhangekar",
+        "party": "INC",
+        "partyFull": "Indian National Congress",
+        "criminalCases": 1,
+        "totalAssets": "41000000",
+        "totalLiabilities": "5000000",
+        "education": "Graduate",
+        "winner": false
+      },
+      {
+        "name": "Vasant More",
+        "party": "NCP-SP",
+        "partyFull": "Nationalist Congress Party (Sharadchandra Pawar)",
+        "criminalCases": 0,
+        "totalAssets": "18000000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": false
+      },
+      {
+        "name": "Siddharth Shirole",
+        "party": "IND",
+        "partyFull": "Independent",
+        "criminalCases": 0,
+        "totalAssets": "62000000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": false
+      }
+    ]
+  },
+  "Chennai Central": {
+    "constituencyName": "Chennai Central",
+    "state": "Tamil Nadu",
+    "mynetaUrl": "https://myneta.info/LokSabha2024/",
+    "candidates": [
+      {
+        "name": "Dayanidhi Maran",
+        "party": "DMK",
+        "partyFull": "Dravida Munnetra Kazhagam",
+        "criminalCases": 1,
+        "totalAssets": "2250000000",
+        "totalLiabilities": "180000000",
+        "education": "Post Graduate",
+        "winner": true
+      },
+      {
+        "name": "Vinoj P Selvam",
+        "party": "AIADMK",
+        "partyFull": "All India Anna Dravida Munnetra Kazhagam",
+        "criminalCases": 0,
+        "totalAssets": "35000000",
+        "totalLiabilities": "0",
+        "education": "Graduate",
+        "winner": false
+      },
+      {
+        "name": "C Saraswathi",
+        "party": "BJP",
+        "partyFull": "Bharatiya Janata Party",
+        "criminalCases": 0,
+        "totalAssets": "15000000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": false
+      },
+      {
+        "name": "K Subbarayan",
+        "party": "CPI",
+        "partyFull": "Communist Party of India",
+        "criminalCases": 0,
+        "totalAssets": "3200000",
+        "totalLiabilities": "0",
+        "education": "Graduate",
+        "winner": false
+      }
+    ]
+  },
+  "Bengaluru South": {
+    "constituencyName": "Bengaluru South",
+    "state": "Karnataka",
+    "mynetaUrl": "https://myneta.info/LokSabha2024/",
+    "candidates": [
+      {
+        "name": "Tejasvi Surya",
+        "party": "BJP",
+        "partyFull": "Bharatiya Janata Party",
+        "criminalCases": 0,
+        "totalAssets": "50000000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": true
+      },
+      {
+        "name": "Sowmya Reddy",
+        "party": "INC",
+        "partyFull": "Indian National Congress",
+        "criminalCases": 0,
+        "totalAssets": "38000000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": false
+      },
+      {
+        "name": "Tulasi Muniraju Gowda",
+        "party": "JD(S)",
+        "partyFull": "Janata Dal (Secular)",
+        "criminalCases": 0,
+        "totalAssets": "22000000",
+        "totalLiabilities": "0",
+        "education": "Graduate",
+        "winner": false
+      },
+      {
+        "name": "Priya Krishnamurthy",
+        "party": "AAP",
+        "partyFull": "Aam Aadmi Party",
+        "criminalCases": 0,
+        "totalAssets": "8500000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": false
+      }
+    ]
+  },
+  "Hyderabad": {
+    "constituencyName": "Hyderabad",
+    "state": "Telangana",
+    "mynetaUrl": "https://myneta.info/LokSabha2024/",
+    "candidates": [
+      {
+        "name": "Asaduddin Owaisi",
+        "party": "AIMIM",
+        "partyFull": "All India Majlis-e-Ittehadul Muslimeen",
+        "criminalCases": 2,
+        "totalAssets": "140000000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": true
+      },
+      {
+        "name": "Madhavi Latha",
+        "party": "BJP",
+        "partyFull": "Bharatiya Janata Party",
+        "criminalCases": 3,
+        "totalAssets": "25000000",
+        "totalLiabilities": "0",
+        "education": "Graduate",
+        "winner": false
+      },
+      {
+        "name": "Sameer Waliullah",
+        "party": "INC",
+        "partyFull": "Indian National Congress",
+        "criminalCases": 0,
+        "totalAssets": "18000000",
+        "totalLiabilities": "0",
+        "education": "Graduate",
+        "winner": false
+      },
+      {
+        "name": "Kiran Kumar Reddy",
+        "party": "BRS",
+        "partyFull": "Bharat Rashtra Samithi",
+        "criminalCases": 0,
+        "totalAssets": "42000000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": false
+      }
+    ]
+  },
+  "Kolkata North": {
+    "constituencyName": "Kolkata North",
+    "state": "West Bengal",
+    "mynetaUrl": "https://myneta.info/LokSabha2024/",
+    "candidates": [
+      {
+        "name": "Sudip Bandyopadhyay",
+        "party": "TMC",
+        "partyFull": "All India Trinamool Congress",
+        "criminalCases": 1,
+        "totalAssets": "35000000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": true
+      },
+      {
+        "name": "Tapas Roy",
+        "party": "BJP",
+        "partyFull": "Bharatiya Janata Party",
+        "criminalCases": 0,
+        "totalAssets": "21000000",
+        "totalLiabilities": "0",
+        "education": "Graduate",
+        "winner": false
+      },
+      {
+        "name": "Santosh Pathak",
+        "party": "INC",
+        "partyFull": "Indian National Congress",
+        "criminalCases": 0,
+        "totalAssets": "8000000",
+        "totalLiabilities": "0",
+        "education": "Graduate",
+        "winner": false
+      },
+      {
+        "name": "Palash Das",
+        "party": "CPI(M)",
+        "partyFull": "Communist Party of India (Marxist)",
+        "criminalCases": 0,
+        "totalAssets": "4500000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": false
+      }
+    ]
+  },
+  "Lucknow": {
+    "constituencyName": "Lucknow",
+    "state": "Uttar Pradesh",
+    "mynetaUrl": "https://myneta.info/LokSabha2024/",
+    "candidates": [
+      {
+        "name": "Rajnath Singh",
+        "party": "BJP",
+        "partyFull": "Bharatiya Janata Party",
+        "criminalCases": 0,
+        "totalAssets": "190000000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": true
+      },
+      {
+        "name": "Ravidas Mehrotra",
+        "party": "SP",
+        "partyFull": "Samajwadi Party",
+        "criminalCases": 1,
+        "totalAssets": "55000000",
+        "totalLiabilities": "8000000",
+        "education": "Graduate",
+        "winner": false
+      },
+      {
+        "name": "Acharya Pramod Krishnam",
+        "party": "INC",
+        "partyFull": "Indian National Congress",
+        "criminalCases": 0,
+        "totalAssets": "28000000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": false
+      },
+      {
+        "name": "Sarvar Malik",
+        "party": "BSP",
+        "partyFull": "Bahujan Samaj Party",
+        "criminalCases": 0,
+        "totalAssets": "3200000",
+        "totalLiabilities": "0",
+        "education": "Graduate",
+        "winner": false
+      }
+    ]
+  },
+  "Ahmedabad East": {
+    "constituencyName": "Ahmedabad East",
+    "state": "Gujarat",
+    "mynetaUrl": "https://myneta.info/LokSabha2024/",
+    "candidates": [
+      {
+        "name": "Hasmukhbhai Patel",
+        "party": "BJP",
+        "partyFull": "Bharatiya Janata Party",
+        "criminalCases": 0,
+        "totalAssets": "82000000",
+        "totalLiabilities": "0",
+        "education": "Graduate",
+        "winner": true
+      },
+      {
+        "name": "Himmatsinh Patel",
+        "party": "INC",
+        "partyFull": "Indian National Congress",
+        "criminalCases": 0,
+        "totalAssets": "15000000",
+        "totalLiabilities": "0",
+        "education": "Graduate",
+        "winner": false
+      },
+      {
+        "name": "Kamlesh Patel",
+        "party": "AAP",
+        "partyFull": "Aam Aadmi Party",
+        "criminalCases": 0,
+        "totalAssets": "9500000",
+        "totalLiabilities": "0",
+        "education": "Post Graduate",
+        "winner": false
+      },
+      {
+        "name": "Dinesh Makwana",
+        "party": "BSP",
+        "partyFull": "Bahujan Samaj Party",
+        "criminalCases": 0,
+        "totalAssets": "2100000",
+        "totalLiabilities": "0",
+        "education": "12th Pass",
+        "winner": false
+      }
+    ]
+  }
+}

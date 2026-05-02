@@ -134,7 +134,7 @@ export async function loadChatHistory(
 export interface ConstituencySelection {
   state: string;
   district: string;
-  constituency?: string;
+  constituencyKey: string;
 }
 
 export async function saveConstituency(
@@ -143,7 +143,7 @@ export async function saveConstituency(
 ): Promise<void> {
   try {
     const ref = doc(db, "users", uid);
-    await setDoc(ref, { constituency: data, lastSeen: serverTimestamp() }, { merge: true });
+    await setDoc(ref, { constituency: { ...data, savedAt: serverTimestamp() }, lastSeen: serverTimestamp() }, { merge: true });
   } catch {
     // Fail silently
   }
@@ -163,3 +163,4 @@ export async function loadConstituency(
     return null;
   }
 }
+
