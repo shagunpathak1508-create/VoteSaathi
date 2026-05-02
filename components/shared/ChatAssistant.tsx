@@ -7,6 +7,7 @@ import { ChatFlow, getResponse } from "@/lib/chatResponses";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useFirebaseUser } from "@/lib/useFirebaseUser";
 import { saveChatHistory, loadChatHistory, ChatMessage } from "@/lib/firestoreHelpers";
+import { logEvent } from "@/lib/firebase";
 import EmptyState from "@/components/shared/EmptyState";
 
 interface Message {
@@ -120,6 +121,7 @@ export default function ChatAssistant({ flow }: ChatAssistantProps) {
     setMessages(updatedWithUser);
     setInput("");
     setIsTyping(true);
+    logEvent("chat_message_sent", { flow });
 
     // 800ms typing animation before showing response
     setTimeout(() => {
@@ -209,14 +211,15 @@ export default function ChatAssistant({ flow }: ChatAssistantProps) {
               <button
                 id="chat-close-btn"
                 onClick={() => setIsOpen(false)}
-                className="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors"
+                className="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors focus-visible:ring-2 focus-visible:ring-orange-500"
+                aria-label="Close chat assistant"
               >
                 <X className="w-4 h-4 text-slate-400" />
               </button>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0" aria-live="polite" role="log">
               {messages.length <= 1 && (
                 <EmptyState
                   variant="no-messages"
@@ -306,10 +309,11 @@ export default function ChatAssistant({ flow }: ChatAssistantProps) {
                   id="chat-send-btn"
                   onClick={() => sendMessage(input)}
                   disabled={!input.trim() || isTyping}
-                  className="w-8 h-8 rounded-lg flex items-center justify-center disabled:opacity-30 transition-all"
+                  className="w-8 h-8 rounded-lg flex items-center justify-center disabled:opacity-30 transition-all focus-visible:ring-2 focus-visible:ring-orange-500"
                   style={{
                     background: "linear-gradient(135deg, #FF6B00, #E55A00)",
                   }}
+                  aria-label="Send message"
                 >
                   <Send className="w-3.5 h-3.5 text-white" />
                 </button>

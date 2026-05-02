@@ -9,6 +9,7 @@ import { saveConstituency, loadConstituency } from "@/lib/firestoreHelpers";
 import { stateDistrictMap, districtConstituencyMap } from "@/lib/constituencyData";
 import { useCandidateData } from "@/lib/useCandidateData";
 import { formatAssets } from "@/lib/formatters";
+import { logEvent } from "@/lib/firebase";
 import type { ConstituencyData } from "@/lib/types";
 
 // Respect prefers-reduced-motion
@@ -102,6 +103,8 @@ export default function FindConstituency() {
       setConstituencyKey(resolvedKey);
       setLoading(false);
 
+      logEvent("constituency_searched", { state: selectedState, district: selectedDistrict });
+
       if (uid) {
         saveConstituency(uid, {
           state: selectedState,
@@ -172,14 +175,16 @@ export default function FindConstituency() {
           >
             {/* State Dropdown */}
             <div>
-              <label className="text-xs text-slate-400 mb-1.5 block font-medium">
+              <label htmlFor="constituency-state-select" id="state-label" className="text-xs text-slate-400 mb-1.5 block font-medium">
                 {t("constituency.selectState")}
               </label>
               <select
                 id="constituency-state-select"
+                aria-label={t("constituency.selectState")}
+                aria-describedby="state-label"
                 value={selectedState}
                 onChange={(e) => handleStateChange(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white appearance-none cursor-pointer outline-none transition-all focus:border-[#FF6B00]/60 focus:ring-2 focus:ring-[#FF6B00]/20 backdrop-blur-md"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white appearance-none cursor-pointer outline-none transition-all focus:border-[#FF6B00]/60 focus:ring-2 focus:ring-[#FF6B00]/20 focus-visible:ring-2 focus-visible:ring-orange-500 backdrop-blur-md"
                 style={{
                   backgroundImage: chevronSvg,
                   backgroundRepeat: "no-repeat",
@@ -199,18 +204,20 @@ export default function FindConstituency() {
 
             {/* District Dropdown */}
             <div>
-              <label className="text-xs text-slate-400 mb-1.5 block font-medium">
+              <label htmlFor="constituency-district-select" id="district-label" className="text-xs text-slate-400 mb-1.5 block font-medium">
                 {t("constituency.selectDistrict")}
               </label>
               <select
                 id="constituency-district-select"
+                aria-label={t("constituency.selectDistrict")}
+                aria-describedby="district-label"
                 value={selectedDistrict}
                 onChange={(e) => handleDistrictChange(e.target.value)}
                 disabled={!selectedState}
                 className={`w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm appearance-none outline-none transition-all backdrop-blur-md ${
                   !selectedState
                     ? "text-slate-600 cursor-not-allowed opacity-50"
-                    : "text-white cursor-pointer focus:border-[#FF6B00]/60 focus:ring-2 focus:ring-[#FF6B00]/20"
+                    : "text-white cursor-pointer focus:border-[#FF6B00]/60 focus:ring-2 focus:ring-[#FF6B00]/20 focus-visible:ring-2 focus-visible:ring-orange-500"
                 }`}
                 style={{
                   backgroundImage: chevronSvg,

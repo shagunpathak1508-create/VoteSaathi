@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Vote, UserPlus, ChevronRight, Shield, Star, Globe } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
+import { logEvent } from "@/lib/firebase";
 import { useEffect, useRef, useState } from "react";
 
 /* ========================================
@@ -138,7 +139,7 @@ export default function LandingPage() {
   const { t, lang, setLang } = useLanguage();
 
   return (
-    <main className="animated-bg min-h-screen flex flex-col relative">
+    <main role="main" className="animated-bg min-h-screen flex flex-col relative">
       {/* Background layers */}
       <ParticleBackground />
       <div className="circuit-grid" />
@@ -151,7 +152,7 @@ export default function LandingPage() {
       <div className="absolute top-3 right-4 z-20">
         <button
           onClick={() => setLang(lang === "en" ? "hi" : "en")}
-          className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition-colors"
+          className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition-colors focus-visible:ring-2 focus-visible:ring-orange-500"
           id="landing-lang-toggle"
           aria-label="Toggle language"
         >

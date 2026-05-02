@@ -13,6 +13,7 @@ import ChatAssistant from "@/components/shared/ChatAssistant";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useFirebaseUser } from "@/lib/useFirebaseUser";
 import { saveJourneyStep, loadJourneyStep } from "@/lib/firestoreHelpers";
+import { logEvent } from "@/lib/firebase";
 import { RotateCcw } from "lucide-react";
 
 export default function NewVoterPage() {
@@ -44,6 +45,7 @@ export default function NewVoterPage() {
   const goNext = useCallback(() => {
     setCurrentStep((s) => {
       const next = Math.min(s + 1, 3);
+      logEvent("step_completed", { step: next.toString() });
       // Save to Firestore (fire-and-forget)
       if (uid) {
         saveJourneyStep(uid, next).then().catch(() => {});
@@ -90,7 +92,7 @@ export default function NewVoterPage() {
         accentColor="#138808"
       />
 
-      <main className="relative z-10 max-w-2xl mx-auto px-4 py-6 space-y-5">
+      <main role="main" className="relative z-10 max-w-2xl mx-auto px-4 py-6 space-y-5">
         {/* Page header */}
         <motion.div
           initial={{ opacity: 0, y: -16 }}
@@ -145,10 +147,11 @@ export default function NewVoterPage() {
         >
           <button
             onClick={restart}
-            className="inline-flex items-center gap-1.5 text-xs text-slate-600 hover:text-slate-400 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs text-slate-600 hover:text-slate-400 transition-colors focus-visible:ring-2 focus-visible:ring-orange-500 rounded"
             id="reset-journey-btn"
+            aria-label="Reset voter registration journey"
           >
-            <RotateCcw className="w-3 h-3" />
+            <RotateCcw className="w-3 h-3" aria-hidden="true" />
             {t("newVoter.resetJourney")}
           </button>
         </motion.div>

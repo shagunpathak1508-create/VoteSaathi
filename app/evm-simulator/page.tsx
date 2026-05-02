@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, RotateCcw } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/LanguageContext";
+import { logEvent } from "@/lib/firebase";
 import Navbar from "@/components/shared/Navbar";
 
 const candidates = [
@@ -48,7 +49,10 @@ export default function EvmSimulatorPage() {
       osc.stop(ctx.currentTime + 0.3);
     } catch {}
 
-    setTimeout(() => setEvmState("done"), 1200);
+    setTimeout(() => {
+      setEvmState("done");
+      logEvent("evm_vote_cast", { candidate_id: String(selectedId) });
+    }, 1200);
   }, [selectedId, evmState]);
 
   const handleReset = () => {
@@ -66,7 +70,7 @@ export default function EvmSimulatorPage() {
         accentColor="#000080"
       />
 
-      <main className="relative z-10 max-w-lg mx-auto px-4 py-6">
+      <main role="main" className="relative z-10 max-w-lg mx-auto px-4 py-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -16 }}
@@ -157,11 +161,12 @@ export default function EvmSimulatorPage() {
               >
                 <button
                   onClick={handleReset}
-                  className="flex items-center gap-2 text-sm font-medium text-white px-6 py-2.5 rounded-xl transition-all hover:opacity-90"
+                  className="flex items-center gap-2 text-sm font-medium text-white px-6 py-2.5 rounded-xl transition-all hover:opacity-90 focus-visible:ring-2 focus-visible:ring-orange-500"
                   style={{ background: "linear-gradient(135deg, #FF6B00, #E55A00)" }}
                   id="evm-try-again-btn"
+                  aria-label="Try EVM voting again"
                 >
-                  <RotateCcw className="w-4 h-4" />
+                  <RotateCcw className="w-4 h-4" aria-hidden="true" />
                   {t("evm.tryAgain")}
                 </button>
                 <Link

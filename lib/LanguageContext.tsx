@@ -31,6 +31,13 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     });
   }, [uid]);
 
+  // Dynamically set the lang attribute on <html> for accessibility
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = lang === "hi" ? "hi" : "en";
+    }
+  }, [lang]);
+
   const setLang = useCallback((newLang: Language) => {
     setLangState(newLang);
     // Save language to Firestore (fire-and-forget)
