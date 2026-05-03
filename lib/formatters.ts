@@ -5,6 +5,8 @@
  * "234567890" → "₹23.4 Cr"
  * "1234567"   → "₹12.3 L"
  * "0" or "Nil" → "Not Declared"
+ * @param rawValue - Raw numeric string from affidavit data (may include commas)
+ * @returns Formatted string like "₹23.4 Cr", "₹12.3 L", "₹1,23,456", or "Not Declared"
  */
 export function formatAssets(rawValue: string): string {
   const num = parseInt(rawValue.replace(/,/g, ""));

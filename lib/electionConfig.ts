@@ -1,10 +1,13 @@
 // lib/electionConfig.ts
+
+/** The four possible stages of an election cycle. */
 export type ElectionStage =
   | "announced"
   | "voting_ongoing"
   | "counting"
   | "results";
 
+/** Current election state — dates, stage, and name for the active election. */
 export const electionState = {
   currentStage: "voting_ongoing" as ElectionStage,
   votingDeadline: "May 15, 2026",
@@ -14,6 +17,7 @@ export const electionState = {
   countingDate: "May 16, 2026",
 };
 
+/** User-facing guidance messages for each election stage. */
 export const stageMessages: Record<ElectionStage, string> = {
   announced:
     "Elections have been announced! Start preparing — check your voter ID and find your polling booth.",
@@ -29,6 +33,7 @@ export const stageMessages: Record<ElectionStage, string> = {
     "Results have been declared! Check below to see the outcome of your constituency.",
 };
 
+/** Ordered list of timeline stages with their labels and emoji icons. */
 export const stages = [
   { id: "announced", label: "Announced", icon: "📢" },
   { id: "voting_ongoing", label: "Voting Ongoing", icon: "🗳️" },

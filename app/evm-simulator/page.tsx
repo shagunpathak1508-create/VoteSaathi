@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, RotateCcw } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/LanguageContext";
-import { logEvent } from "@/lib/firebase";
+import { trackEvent } from "@/lib/firebase";
 import Navbar from "@/components/shared/Navbar";
 
 const candidates = [
@@ -51,7 +51,7 @@ export default function EvmSimulatorPage() {
 
     setTimeout(() => {
       setEvmState("done");
-      logEvent("evm_vote_cast", { candidate_id: String(selectedId) });
+      void trackEvent('evm_vote_cast', { candidate_selected: true });
     }, 1200);
   }, [selectedId, evmState]);
 

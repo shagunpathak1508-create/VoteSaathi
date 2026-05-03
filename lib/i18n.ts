@@ -1,7 +1,9 @@
 // lib/i18n.ts
 
+/** Supported language codes for the VoteSaathi application. */
 export type Language = "en" | "hi";
 
+/** Complete translation dictionary for English and Hindi. */
 const translations: Record<Language, Record<string, string>> = {
   en: {
     // Navigation
@@ -328,6 +330,14 @@ const translations: Record<Language, Record<string, string>> = {
   },
 };
 
+/**
+ * Returns the translated string for a given key and language.
+ * Falls back to English if the key is missing in the requested language,
+ * and returns the raw key if no translation exists at all.
+ * @param key - The dot-separated translation key (e.g. "nav.voterDashboard")
+ * @param lang - The target language code
+ * @returns The translated string, or the key if no translation is found
+ */
 export function t(key: string, lang: Language): string {
   return translations[lang]?.[key] || translations["en"]?.[key] || key;
 }

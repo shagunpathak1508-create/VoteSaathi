@@ -13,7 +13,7 @@ import ChatAssistant from "@/components/shared/ChatAssistant";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useFirebaseUser } from "@/lib/useFirebaseUser";
 import { saveJourneyStep, loadJourneyStep } from "@/lib/firestoreHelpers";
-import { logEvent } from "@/lib/firebase";
+import { trackEvent } from "@/lib/firebase";
 import { RotateCcw } from "lucide-react";
 
 export default function NewVoterPage() {
@@ -22,6 +22,13 @@ export default function NewVoterPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [showToast, setShowToast] = useState(false);
   const [mounted, setMounted] = useState(false);
+
+  const stepNames: Record<number, string> = {
+    0: 'eligibility',
+    1: 'registration',
+    2: 'verification',
+    3: 'voter_id',
+  };
 
   // Load journey step from Firestore on mount
   useEffect(() => {
@@ -40,12 +47,13 @@ export default function NewVoterPage() {
       const timer = setTimeout(() => setMounted(true), 500);
       return () => clearTimeout(timer);
     }
+    return undefined;
   }, [uid, mounted]);
 
   const goNext = useCallback(() => {
     setCurrentStep((s) => {
       const next = Math.min(s + 1, 3);
-      logEvent("step_completed", { step: next.toString() });
+      void trackEvent('step_completed', { step_number: next, step_name: stepNames[next] ?? 'unknown' });
       // Save to Firestore (fire-and-forget)
       if (uid) {
         saveJourneyStep(uid, next).then().catch(() => {});

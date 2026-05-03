@@ -8,6 +8,7 @@ import { electionState } from "@/lib/electionConfig";
 import { useFirebaseUser } from "@/lib/useFirebaseUser";
 import { saveReadiness, loadReadiness } from "@/lib/firestoreHelpers";
 import EmptyState from "@/components/shared/EmptyState";
+import { trackEvent } from "@/lib/firebase";
 
 const checklistKeys = [
   "readiness.item1",
@@ -17,7 +18,10 @@ const checklistKeys = [
   "readiness.item5",
 ];
 
-export default function VoterReadinessChecklist() {
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface VoterReadinessChecklistProps {}
+
+const VoterReadinessChecklist: React.FC<VoterReadinessChecklistProps> = () => {
   const { t } = useLanguage();
   const { uid, loading: uidLoading } = useFirebaseUser();
   const [checked, setChecked] = useState<boolean[]>([false, false, false, false, false]);
@@ -41,12 +45,15 @@ export default function VoterReadinessChecklist() {
       const timer = setTimeout(() => setMounted(true), 500);
       return () => clearTimeout(timer);
     }
+    return undefined;
   }, [uidLoading, mounted]);
 
-  const toggle = (index: number) => {
+  const toggle = (index: number): void => {
     setChecked((prev) => {
       const next = [...prev];
       next[index] = !next[index];
+      const newScore = next.filter(Boolean).length;
+      void trackEvent('readiness_score_updated', { score: newScore, total: 5 });
       if (uid) {
         const record: Record<string, boolean> = {};
         checklistKeys.forEach((key, i) => {
@@ -182,4 +189,6 @@ export default function VoterReadinessChecklist() {
       </AnimatePresence>
     </motion.div>
   );
-}
+};
+
+export default VoterReadinessChecklist;

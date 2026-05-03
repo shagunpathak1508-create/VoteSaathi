@@ -1,6 +1,10 @@
 // lib/constituencyData.ts
 // All 28 states + 8 UTs with major districts and Lok Sabha constituency mappings
 
+/**
+ * Maps each Indian state and union territory to its major districts.
+ * Used to populate the district dropdown after a state is selected.
+ */
 export const stateDistrictMap: Record<string, string[]> = {
   // ── States ────────────────────────────────────────────────────────────
   "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Tirupati", "Kurnool", "Kakinada", "Nellore", "Rajahmundry"],
@@ -43,6 +47,10 @@ export const stateDistrictMap: Record<string, string[]> = {
   "Puducherry": ["Puducherry City", "Karaikal", "Mahe", "Yanam", "Ozhukarai"],
 };
 
+/**
+ * Maps each major district to its approximate Lok Sabha constituency name.
+ * A district may span multiple constituencies; this provides the primary mapping.
+ */
 export const districtConstituencyMap: Record<string, string> = {
   // Andhra Pradesh
   "Visakhapatnam": "Visakhapatnam",
@@ -336,7 +344,11 @@ export const districtConstituencyMap: Record<string, string> = {
   "Ozhukarai": "Puducherry",
 };
 
-// MyNeta 2024 Lok Sabha constituency ID deep links for major districts
+
+/**
+ * Maps major city/district names to their MyNeta 2024 Lok Sabha deep-link URLs.
+ * Used to link directly to the candidate list for the most popular constituencies.
+ */
 export const myneta2024ConstituencyIds: Record<string, string> = {
   "Mumbai": "https://myneta.info/LokSabha2024/index.php?constituency_id=31",
   "Pune": "https://myneta.info/LokSabha2024/index.php?constituency_id=25",

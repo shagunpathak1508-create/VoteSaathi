@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Vote, UserPlus, ChevronRight, Shield, Star, Globe } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
-import { logEvent } from "@/lib/firebase";
+import { trackEvent } from "@/lib/firebase";
 import { useEffect, useRef, useState } from "react";
 
 /* ========================================
@@ -137,6 +137,10 @@ function TypingHero() {
    ======================================== */
 export default function LandingPage() {
   const { t, lang, setLang } = useLanguage();
+
+  useEffect(() => {
+    void trackEvent('page_view', { page: 'landing' });
+  }, []);
 
   return (
     <main role="main" className="animated-bg min-h-screen flex flex-col relative">

@@ -11,9 +11,15 @@ import ChatAssistant from "@/components/shared/ChatAssistant";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/LanguageContext";
 import { electionState } from "@/lib/electionConfig";
+import { useEffect } from "react";
+import { trackEvent } from "@/lib/firebase";
 
 export default function RegisteredVoterPage() {
   const { t } = useLanguage();
+
+  useEffect(() => {
+    void trackEvent('page_view', { page: 'registered_dashboard' });
+  }, []);
 
   return (
     <div className="animated-bg min-h-screen">

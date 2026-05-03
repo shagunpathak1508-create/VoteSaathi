@@ -6,8 +6,8 @@ import { MessageCircle, X, Send, Bot } from "lucide-react";
 import { ChatFlow, getResponse } from "@/lib/chatResponses";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useFirebaseUser } from "@/lib/useFirebaseUser";
-import { saveChatHistory, loadChatHistory, ChatMessage } from "@/lib/firestoreHelpers";
-import { logEvent } from "@/lib/firebase";
+import { saveChatHistory, loadChatHistory } from "@/lib/firestoreHelpers";
+import { trackEvent } from "@/lib/firebase";
 import EmptyState from "@/components/shared/EmptyState";
 
 interface Message {
@@ -121,7 +121,7 @@ export default function ChatAssistant({ flow }: ChatAssistantProps) {
     setMessages(updatedWithUser);
     setInput("");
     setIsTyping(true);
-    logEvent("chat_message_sent", { flow });
+    void trackEvent('chat_message_sent', { query_length: text.trim().length });
 
     // 800ms typing animation before showing response
     setTimeout(() => {

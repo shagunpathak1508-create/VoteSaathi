@@ -16,6 +16,12 @@ export interface ChatMessage {
 
 // ─── Voter Readiness Checklist ──────────────────────────────────────
 
+/**
+ * Saves the voter readiness checklist state for a user to Firestore.
+ * Fails silently on network/auth errors to avoid breaking the UI.
+ * @param uid - Firebase anonymous user ID
+ * @param checklist - Map of checklist item keys to their checked state
+ */
 export async function saveReadiness(
   uid: string,
   checklist: Record<string, boolean>
@@ -28,6 +34,12 @@ export async function saveReadiness(
   }
 }
 
+/**
+ * Loads the voter readiness checklist state for a user from Firestore.
+ * Returns null if no data exists or on error.
+ * @param uid - Firebase anonymous user ID
+ * @returns The checklist record or null if not found
+ */
 export async function loadReadiness(
   uid: string
 ): Promise<Record<string, boolean> | null> {
@@ -45,6 +57,12 @@ export async function loadReadiness(
 
 // ─── New Voter Journey Step ─────────────────────────────────────────
 
+/**
+ * Saves the current step index of the new voter registration journey to Firestore.
+ * Fails silently on network/auth errors.
+ * @param uid - Firebase anonymous user ID
+ * @param step - The zero-based step index (0–3)
+ */
 export async function saveJourneyStep(
   uid: string,
   step: number
@@ -57,12 +75,18 @@ export async function saveJourneyStep(
   }
 }
 
+/**
+ * Loads the saved journey step for a user from Firestore.
+ * Returns 0 (first step) if no data exists or on error.
+ * @param uid - Firebase anonymous user ID
+ * @returns The saved step index, or 0 as the default
+ */
 export async function loadJourneyStep(uid: string): Promise<number> {
   try {
     const ref = doc(db, "users", uid);
     const snap = await getDoc(ref);
     if (snap.exists() && typeof snap.data().journeyStep === "number") {
-      return snap.data().journeyStep;
+      return snap.data().journeyStep as number;
     }
     return 0;
   } catch {
@@ -72,6 +96,12 @@ export async function loadJourneyStep(uid: string): Promise<number> {
 
 // ─── Language Preference ────────────────────────────────────────────
 
+/**
+ * Saves the user's language preference ("en" or "hi") to Firestore.
+ * Fails silently on network/auth errors.
+ * @param uid - Firebase anonymous user ID
+ * @param lang - The selected language code
+ */
 export async function saveLanguage(
   uid: string,
   lang: "en" | "hi"
@@ -84,6 +114,12 @@ export async function saveLanguage(
   }
 }
 
+/**
+ * Loads the user's language preference from Firestore.
+ * Returns "en" as the default if no preference is saved or on error.
+ * @param uid - Firebase anonymous user ID
+ * @returns The saved language code, or "en" as the default
+ */
 export async function loadLanguage(uid: string): Promise<"en" | "hi"> {
   try {
     const ref = doc(db, "users", uid);
@@ -100,6 +136,12 @@ export async function loadLanguage(uid: string): Promise<"en" | "hi"> {
 
 // ─── Chat History (last 20 messages) ────────────────────────────────
 
+/**
+ * Saves up to the last 20 chat messages for a user to Firestore.
+ * Trims older messages automatically. Fails silently on error.
+ * @param uid - Firebase anonymous user ID
+ * @param messages - Array of chat messages to persist
+ */
 export async function saveChatHistory(
   uid: string,
   messages: ChatMessage[]
@@ -114,6 +156,12 @@ export async function saveChatHistory(
   }
 }
 
+/**
+ * Loads the saved chat message history for a user from Firestore.
+ * Returns an empty array if no history exists or on error.
+ * @param uid - Firebase anonymous user ID
+ * @returns Array of saved chat messages
+ */
 export async function loadChatHistory(
   uid: string
 ): Promise<ChatMessage[]> {
@@ -137,6 +185,12 @@ export interface ConstituencySelection {
   constituencyKey: string;
 }
 
+/**
+ * Saves the user's selected constituency (state, district, key) to Firestore.
+ * Fails silently on network/auth errors.
+ * @param uid - Firebase anonymous user ID
+ * @param data - The constituency selection to save
+ */
 export async function saveConstituency(
   uid: string,
   data: ConstituencySelection
@@ -149,6 +203,12 @@ export async function saveConstituency(
   }
 }
 
+/**
+ * Loads the user's previously saved constituency selection from Firestore.
+ * Returns null if no selection is saved or on error.
+ * @param uid - Firebase anonymous user ID
+ * @returns The saved constituency selection or null
+ */
 export async function loadConstituency(
   uid: string
 ): Promise<ConstituencySelection | null> {
@@ -163,4 +223,3 @@ export async function loadConstituency(
     return null;
   }
 }
-

@@ -9,7 +9,7 @@ import { saveConstituency, loadConstituency } from "@/lib/firestoreHelpers";
 import { stateDistrictMap, districtConstituencyMap } from "@/lib/constituencyData";
 import { useCandidateData } from "@/lib/useCandidateData";
 import { formatAssets } from "@/lib/formatters";
-import { logEvent } from "@/lib/firebase";
+import { trackEvent } from "@/lib/firebase";
 import type { ConstituencyData } from "@/lib/types";
 
 // Respect prefers-reduced-motion
@@ -103,7 +103,7 @@ export default function FindConstituency() {
       setConstituencyKey(resolvedKey);
       setLoading(false);
 
-      logEvent("constituency_searched", { state: selectedState, district: selectedDistrict });
+      void trackEvent('constituency_searched', { state: selectedState, district: selectedDistrict });
 
       if (uid) {
         saveConstituency(uid, {

@@ -175,9 +175,12 @@ const FALLBACK_RESPONSE =
   "I'm not sure about that specific question. For accurate and up-to-date information, please:\n\n📞 Call the ECI Helpline: 1950 (toll-free)\n🌐 Visit: https://voters.eci.gov.in\n📱 Download the Voter Helpline app\n\nYou can also try asking me about voter registration, polling day procedures, voter ID, election results, or NRI voting!";
 
 /**
- * Static keyword-matched response system.
- * Matches user input against 25+ predefined responses covering all election topics.
- * Returns the fallback response with ECI helpline 1950 if no match is found.
+ * Returns a keyword-matched response to the given user input.
+ * Scores each predefined response by how many of its keywords appear in the input,
+ * weighted by keyword length for better precision. Falls back to the ECI helpline
+ * message if no keyword match is found.
+ * @param input - Raw user input string from the chat interface
+ * @returns A formatted multi-line response string
  */
 export function getResponse(input: string): string {
   const lowerInput = input.toLowerCase().trim();

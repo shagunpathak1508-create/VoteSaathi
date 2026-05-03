@@ -38,12 +38,12 @@ jest.mock("@/lib/firebase", () => ({
 
 jest.mock("framer-motion", () => ({
   motion: {
-    div: ({ children, ...props }: any) =>
+    div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) =>
       React.createElement("div", { "data-testid": "motion-div", ...props }, children),
-    button: ({ children, ...props }: any) =>
+    button: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) =>
       React.createElement("button", props, children),
   },
-  AnimatePresence: ({ children }: any) => React.createElement(React.Fragment, null, children),
+  AnimatePresence: ({ children }: React.PropsWithChildren) => React.createElement(React.Fragment, null, children),
 }));
 
 import FindConstituency from "@/components/registered/FindConstituency";
